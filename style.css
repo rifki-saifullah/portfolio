@@ -1,0 +1,637 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    /* overflow-x: hidden; */
+}
+
+/* Progress Bar ............................................................. */
+
+/* Nav ......................................................................... */
+
+nav {
+    width: 100vw;
+    height: 8vh;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    position: fixed;
+    z-index: 999;
+}
+
+.logo {
+    justify-self: center;
+    align-self: center;
+    text-shadow: #e0e0e0 1px 1px 0;
+    color: #616161;
+}
+
+.menu ul li a:hover {
+    text-shadow: #616161 1px 1px 0;
+    color: #e0e0e0;
+    transition: .5s;
+}
+
+.menu ul {
+    display: flex;
+    justify-content: end;
+    line-height: 8vh;
+}
+
+.menu ul li {
+    margin: 0 2% 0 2%; 
+    list-style: none;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    text-shadow: #e0e0e0 1px 1px 0;
+    color: #616161;
+}
+
+/* main ................................................................... */
+
+main {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* scroll-snap-type: y mandatory; */
+    /* display: flex; */
+}
+
+/* containers */
+
+.container {
+    /* scroll-snap-align: start; */
+    /* flex: none; */
+}
+
+/* first main ............................................................. */
+
+main .container1 {
+    width: 100vw;
+    min-width: 400px;
+    height: 100vh;
+    background-size: cover;
+    background-color: #2D2727;
+}
+
+main .container1 .column-detail {
+    max-width: 400px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 4%;
+    box-sizing: border-box;
+    color: #eee;
+}
+
+main .container1 .column-detail .name {
+    text-shadow: 3px 5px 2px #474747;
+    color: #FFFFFF;
+}
+
+main .container1 .column-detail .hi {
+    position: absolute;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    font-size: 5em;
+    opacity: .3;
+    text-shadow: 3px 5px 2px #474747;
+    color: #FFFFFF;
+}
+
+/* First Decoration ...................................................... */
+
+.first-decoration {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    position: relative;
+}
+
+.first-decoration .detail1 {
+    width: 50%;
+    height: 50%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.first-decoration .background {
+    font-size: 500px;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: 100vh;
+    margin: auto;
+    color: #eee;
+    z-index: -9;
+}
+
+.first-decoration .detail1 .grid h1 {
+    font-size: 60px;
+    text-align: center;
+
+}
+
+.first-decoration .detail1 .grid p {
+    text-align: center;
+}
+
+/* Second Decoration ...................................................... */
+
+.second-decoration {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1.7fr;
+}
+
+.second-decoration .detail {
+    padding: 5% 20% 5% 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-self: center;
+}
+
+.second-decoration .photo {
+    width: 150px;
+    height: 80vh;
+    background-color: #2D2727;
+    justify-self: center;
+    align-self: center;
+    transform: skewX(-15deg);
+
+}
+
+/* Third Decoration ..................................................... */
+
+.third-decoration {
+    width: 100vw;
+    height: 100vh;
+    background-color: #2D2727;
+    line-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.third-decoration h1 {
+    font-size: 100px;
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+}
+
+.third-decoration .circle {
+    position: absolute;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.circle1 {
+    width: 150px;
+    height: 150px;
+    top: -10%;
+    right: -7%;
+    border: 37px solid #fff;
+}
+
+.circle2 {
+    width: 100px;
+    height: 100px;
+    top: -12%;
+    right: 30%;
+    border: 30px solid #fff;
+}
+
+.circle3 {
+    width: 20px;
+    height: 20px;
+    top: 32%;
+    right: 27%;
+    border: 5px solid #fff;
+}
+
+.circle4 {
+    width: 130px;
+    height: 130px;
+    top: 5%;
+    left: -7%;
+    border: 30px solid #fff;
+}
+
+.circle5 {
+    width: 40px;
+    height: 40px;
+    top: 60%;
+    left: 25%;
+    border: 10px solid #fff;
+}
+
+.circle6 {
+    width: 100px;
+    height: 100px;
+    bottom: 5%;
+    left: 1%;
+    border: 25px solid #fff;
+}
+
+.circle7 {
+    width: 180px;
+    height: 180px;
+    bottom: -20%;
+    right: 20%;
+    border: 45px solid #fff;
+    overflow: hidden;
+}
+
+/* Scroll Bar ............................................................ */
+
+::-webkit-scrollbar {
+    width: 0;
+  }
+
+/* Skill ............................................................... */
+
+.skill {
+    width: 100vw;
+    height: 100vh;
+}
+
+.skill .header {
+    width: 100vw;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill .skill-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.skill .skill-detail .column {
+    padding: 5%;
+}
+
+/* Skill Bar .......................................................... */
+
+.label-skill {
+   padding: 0 0 8% 0;
+   text-align: center;
+   font-size: 1.2em;
+}
+.container-bar {
+    width: 100%;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #888;
+    position: relative;
+    margin-bottom: 8%;
+    -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+}
+
+.skill-bar {
+    height: inherit;
+    border-radius: inherit;
+    text-align: right;
+    color: white;
+    background-color: #2D2727;
+    line-height: 30px;
+    position: absolute;
+    padding-right: 2%;
+    box-sizing: border-box;
+}
+
+.container-bar p {
+    left: 3%;
+    line-height: 30px;
+    position: absolute;
+    color: #fff;
+}
+  
+.js {
+    width: 90%;
+}
+
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+.php {
+    width: 80%;
+}
+
+/* Work ............................................................... */
+
+.work {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.work .column-work {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    width: 80%;
+    height: 80%;
+}
+
+.work .column-work .three {
+    margin: 10px;
+    position: relative;
+ -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    border-radius: 5px;
+    background-image: url(img/bg-skill.png);
+    background-size: cover;
+    background-position-y: -60px;
+    background-position-x: 6px;
+}
+
+.work .column-work .section {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.work .column-work .section .fe {
+    position: relative;
+    background-color: #aaa;
+ -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.work .column-work .section .be {
+    position: relative;
+    background-color: #aaa;
+ -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0); 
+box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.label {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    cursor: default;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Footer ............................................................ */
+
+.footer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer .row-footer {
+    width: 60%;
+    height: 30%;
+    display: grid;
+}
+
+.footer .row-footer h1 {
+    text-align: center;
+}
+
+.footer .row-footer .social-apps {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.footer .row-footer .social-apps .app {
+    display: flex;
+    gap: 5px;
+}
+
+.footer .row-footer .social-apps .app a {
+    text-decoration: none;
+    align-self: center;
+    text-shadow: #e0e0e0 1px 1px 0;
+    color: #000000;
+    transition: .5s;
+}
+.footer .row-footer .social-apps .app a:hover {
+    text-shadow: #616161 1px 1px 0;
+    color: #e0e0e0;
+    transition: .5s;
+}
+
+svg {
+    width: 40px;
+}
+
+/* Media Query ....................................................... */
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (max-width: 768px) {
+    /* nav ................................*/
+    .menu ul li a {
+        font-size: .8rem;
+    }
+    nav .logo h2 {
+        font-size: 1.2rem;
+    }
+    nav {
+        grid-template-columns: 1fr 3fr;
+    }
+
+    /* First Decoration .................. */
+    .first-decoration .background {
+        font-size: 15rem;
+    }
+    .first-decoration .detail1 .grid h1 {
+        font-size: 2.5rem;
+    }
+    .first-decoration .detail1 .grid p {
+        font-size: .8rem;
+    }
+
+    /* Second Decoration ................. */
+    .second-decoration {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .second-decoration .photo {
+        display: none;
+    }
+    .second-decoration .detail {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        text-align: center;
+        padding: 10%;
+    }
+
+    /* Third Decoration ................... */
+    .third-decoration h1 {
+        font-size: 2.5em;
+    }
+    .circle1 {
+        width: 80px;
+        height: 80px;
+        top: -4%;
+        right: -2%;
+        border: 10px solid #fff;
+    }
+    .circle2 {
+        width: 60px;
+        height: 60px;
+        top: -8%;
+        right: 45%;
+        border: 5px solid #fff;
+    }
+    .circle3 {
+        width: 20px;
+        height: 20px;
+        top: 32%;
+        right: 27%;
+        border: 5px solid #fff;
+    }
+    .circle4 {
+        width: 60px;
+        height: 60px;
+        top: 15%;
+        left: 15%;
+        border: 8px solid #fff;
+    }
+    .circle5 {
+        width: 25px;
+        height: 25px;
+        top: 60%;
+        left: 25%;
+        border: 2px solid #fff;
+    }
+    .circle6 {
+        width: 40px;
+        height: 40px;
+        bottom: 5%;
+        left: 1%;
+        border: 4px solid #fff;
+    }
+    .circle7 {
+        width: 100px;
+        height: 100px;
+        bottom: -8%;
+        right: 20%;
+        border: 15px solid #fff;
+        overflow: hidden;
+    }
+
+/* Skill ............................................................... */
+.skill .skill-detail {
+    grid-template-columns: 1fr;
+}
+.skill .skill-detail .column {
+    padding: 1% 5% 1% 5%;
+}
+
+/* Skill Bar .......................................................... */
+.container-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 20px;
+    position: relative;
+    margin-bottom: 5%;
+}
+
+.skill-bar {
+    font-size: .7em;
+    line-height: 20px;
+}
+
+.container-bar p {
+    font-size: .7em;
+    left: 10px;
+    line-height: 20px;
+}
+
+/* Work ................................ */
+.work .column-work {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+.work .column-work .section {
+    grid-template-columns: 1fr;
+}
+.work .column-work .section .be {
+    display: none;
+}
+.work .column-work .three {
+    background-image: url(img/small-bg-skill.png);
+    background-size: cover;
+    background-position-y: center;
+    background-position-x: center;
+}
+
+/* Footer ................... */
+.footer .row-footer h1 {
+    text-align: center;
+}
+.footer .row-footer .social-apps {
+    display: grid;
+}
+.footer .row-footer .social-apps .app {
+    display: flex;
+    gap: 10px;
+}
+svg {
+    width: 20px;
+}
+}
