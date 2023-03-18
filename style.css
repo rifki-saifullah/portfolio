@@ -490,10 +490,10 @@ svg {
 
     /* First Decoration .................. */
     .first-decoration .background {
-        font-size: 13rem;
+        font-size: 22rem;
     }
     .first-decoration .detail1 .grid h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
     .first-decoration .detail1 .grid p {
         font-size: .8rem;
