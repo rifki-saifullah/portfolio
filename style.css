@@ -487,6 +487,12 @@ svg {
     nav {
         grid-template-columns: 1fr 3fr;
     }
+    .logo {
+        margin: 0% 4% 0% 4%;
+    }
+    .menu ul li a {
+        margin: 0% 4% 0% 4%;   
+    }
 
     /* First Decoration .................. */
     .first-decoration .background {
