@@ -1,5 +1,14 @@
-# Vue 3 + Vite
+# Rifki Saifullah - Portfolio
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Hi! I'm Rifki, a passionate web developer and software engineer.  
+This repository contains my portfolio projects, showcasing my skills in web development, backend APIs
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## **Contact**
+- Website: https://rifki-saifullah.vercel.app
+- GitHub: [https://github.com/rifki-saifullah](https://github.com/rifki-saifullah)  
+- Email: rifki.saifullah.professional@proton.me
+
+---
+
+## **License**
+This portfolio is open-source and available under the [MIT License](LICENSE).
