@@ -9,7 +9,7 @@ import Chess from "@/assets/chess.svg";
 <template>
   <section id="contact" class="w-screen relative h-60 bg-gray-600 dark:bg-gray-700 mb-40 md:mb-50 shadow">
     <div class="absolute top-20 left-0 right-0 bg-orange-200 dark:bg-gray-600 text-gray-600 dark:text-white w-full md:w-1/2 m-auto p-8 flex flex-col gap-4 rounded-b-2xl md:rounded-2xl">
-      <h1 class="font-bold text-lg">Informasi Kontak</h1>
+      <h1 class="font-bold text-lg">Contact Information</h1>
 
       <div class="flex gap-4 items-center">
         <Email class="size-5 dark:fill-white" />
