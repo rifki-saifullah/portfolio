@@ -1,8 +1,9 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
 	import { getLocale } from '$lib/paraglide/runtime';
-	import { Pencil, Trash2, Plus, Search, Layers } from '@lucide/svelte';
+	import { Pencil, Trash2, Plus, Search, Layers, LogOut } from '@lucide/svelte';
 	import { categoryService } from '$lib/services/category.service';
+	import { authService } from '$lib/services/auth.service';
 	import { categorySchema } from '$lib/validators/category';
 	import LangInput from '$lib/components/ui/LangInput.svelte';
 	import Pagination from '$lib/components/ui/Pagination.svelte';
@@ -13,6 +14,7 @@
 	import type { Category, Lang } from '$lib/types';
 	import { onMount } from 'svelte';
 	import { z } from 'zod';
+	import { goto } from '$app/navigation';
 
 	let categories = $state<Category[]>([]);
 	let loading = $state(true);
@@ -61,6 +63,12 @@
 	onMount(async () => {
 		await loadCategories(currentPage);
 	});
+
+	async function handleLogout() {
+		await authService.logout();
+		toastStore.success('Logout berhasil.');
+		goto('/login');
+	}
 
 	async function loadCategories(page = 1) {
 		loading = true;
@@ -203,15 +211,21 @@
 						<p class="text-sm text-base-content/60">{m.admin_category_subtitle()}</p>
 					</div>
 
-					<!-- Search Bar Realtime -->
-					<div class="relative w-full sm:w-64">
-						<Search class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-base-content/40" />
-						<input
-							type="text"
-							bind:value={searchQuery}
-							placeholder={m.admin_category_search_placeholder?.() || 'Cari kategori (ID/EN/JA)...'}
-							class="input input-sm input-bordered pl-9 w-full rounded-xl bg-base-200/50 focus:bg-base-100 transition-colors"
-						/>
+					<!-- Search Bar Realtime & Logout -->
+					<div class="flex items-center gap-2 w-full sm:w-auto">
+						<div class="relative flex-1 sm:w-64">
+							<Search class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-base-content/40" />
+							<input
+								type="text"
+								bind:value={searchQuery}
+								placeholder={m.admin_category_search_placeholder?.() || 'Cari kategori (ID/EN/JA)...'}
+								class="input input-sm input-bordered pl-9 w-full rounded-xl bg-base-200/50 focus:bg-base-100 transition-colors"
+							/>
+						</div>
+						<button type="button" class="btn btn-outline btn-error btn-sm gap-1.5 shrink-0" onclick={handleLogout}>
+							<LogOut size={16} />
+							<span class="hidden sm:inline">{m.footer_logout()}</span>
+						</button>
 					</div>
 				</div>
 			</div>

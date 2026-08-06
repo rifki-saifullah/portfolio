@@ -1,8 +1,10 @@
 <script lang="ts">
 	import * as m from '$lib/paraglide/messages';
-	import { Eye, Pencil, Trash2, User as UserIcon, Folder } from '@lucide/svelte';
+	import { Eye, Pencil, Trash2, User as UserIcon, Folder, LogOut } from '@lucide/svelte';
 	import { postService } from '$lib/services/post.service';
 	import { categoryService } from '$lib/services/category.service';
+	import { authService } from '$lib/services/auth.service';
+	import { goto } from '$app/navigation';
 	import ConfirmDialog from '$lib/components/ui/ConfirmDialog.svelte';
 	import LoadingSkeleton from '$lib/components/ui/LoadingSkeleton.svelte';
 	import { toastStore } from '$lib/stores/toast.svelte.js';
@@ -28,6 +30,12 @@
 		await loadCategories();
 		await loadPosts(1, true);
 	});
+
+	async function handleLogout() {
+		await authService.logout();
+		toastStore.success('Logout berhasil.');
+		goto('/login');
+	}
 
 	async function loadCategories() {
 		const res = await categoryService.getAll();
@@ -145,13 +153,17 @@
 					<UserIcon size={16} />
 					<span>{m.admin_post_my_profile?.() || 'Profil Saya'}</span>
 				</a>
-								<a href="/admin/category" class="btn btn-outline btn-sm gap-2">
+				<a href="/admin/category" class="btn btn-outline btn-sm gap-2">
 					<Folder size={16} />
 					<span>{m.admin_category_title()}</span>
 				</a>
 				<a href="/admin/post/create" class="btn btn-primary btn-sm">
 					+ {m.admin_post_create_title()}
 				</a>
+				<button type="button" class="btn btn-outline btn-error btn-sm gap-1.5" onclick={handleLogout}>
+					<LogOut size={16} />
+					<span>{m.footer_logout()}</span>
+				</button>
 			</div>
 		</div>
 

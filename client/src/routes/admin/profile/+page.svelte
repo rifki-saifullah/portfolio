@@ -3,11 +3,13 @@
 	import FormField from '$lib/components/ui/FormField.svelte';
 	import { userService } from '$lib/services/profile.service';
 	import { authStore } from '$lib/stores/auth.svelte.js';
+	import { authService } from '$lib/services/auth.service';
 	import { toastStore } from '$lib/stores/toast.svelte.js';
 	import { updateProfileSchema, changePasswordSchema } from '$lib/validators/profile';
 	import { onMount } from 'svelte';
-	import { User as UserIcon, Lock, Camera, ArrowLeft } from '@lucide/svelte';
+	import { User as UserIcon, Lock, Camera, ArrowLeft, LogOut } from '@lucide/svelte';
 	import { z } from 'zod';
+	import { goto } from '$app/navigation';
 
 	import { getImageUrl } from '$lib/utils/format';
 
@@ -42,6 +44,12 @@
 			youtubeUrl = res.data.youtubeUrl || '';
 		}
 	});
+
+	async function handleLogout() {
+		await authService.logout();
+		toastStore.success('Logout berhasil.');
+		goto('/login');
+	}
 
 	async function handleAvatarUpload(e: Event) {
 		const target = e.target as HTMLInputElement;
@@ -141,7 +149,13 @@
 				<ArrowLeft size={16} />
 				<span>Kembali ke Postingan</span>
 			</a>
-			<h1 class="text-xl font-bold text-base-content">Pengaturan Akun</h1>
+			<div class="flex items-center gap-3">
+				<h1 class="text-xl font-bold text-base-content hidden sm:block">Pengaturan Akun</h1>
+				<button type="button" class="btn btn-outline btn-error btn-sm gap-1.5" onclick={handleLogout}>
+					<LogOut size={16} />
+					<span>{m.footer_logout()}</span>
+				</button>
+			</div>
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">

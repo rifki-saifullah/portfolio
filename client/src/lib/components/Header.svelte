@@ -3,9 +3,13 @@
 	import LangController from '$lib/components/LangController.svelte';
 	import * as m from '$lib/paraglide/messages';
 	import Logo from '$lib/assets/logo.svg';
-	import { Menu } from '@lucide/svelte';
+	import { Menu, LogOut } from '@lucide/svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/state';
+	import { authService } from '$lib/services/auth.service';
+	import { authStore } from '$lib/stores/auth.svelte.js';
+	import { toastStore } from '$lib/stores/toast.svelte.js';
+	import { goto } from '$app/navigation';
 
 	interface Props {
 		/** 'homepage' shows section anchors, 'default' shows page links */
@@ -43,12 +47,19 @@
 	let isScrolled = $state(false);
 
 	onMount(() => {
+		authStore.initialize();
 		const handleScroll = () => {
 			isScrolled = window.scrollY > 20;
 		};
 		window.addEventListener('scroll', handleScroll);
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
+
+	async function handleLogout() {
+		await authService.logout();
+		toastStore.success('Logout berhasil.');
+		goto('/login');
+	}
 </script>
 
 <header
@@ -73,6 +84,14 @@
 							<a href={item.href}>{item.label()}</a>
 						</li>
 					{/each}
+					{#if authStore.isAuthenticated || page.url.pathname.startsWith('/admin')}
+						<li>
+							<button type="button" class="text-error flex items-center gap-2" onclick={handleLogout}>
+								<LogOut class="h-4 w-4" />
+								<span>{m.footer_logout()}</span>
+							</button>
+						</li>
+					{/if}
 				</ul>
 			</div>
 
@@ -99,6 +118,17 @@
 		<div class="header-item navbar-end flex items-center gap-2">
 			<LangController />
 			<ThemeController />
+			{#if authStore.isAuthenticated || page.url.pathname.startsWith('/admin')}
+				<button
+					type="button"
+					class="btn btn-ghost btn-sm text-error hover:bg-error/10 gap-1.5 rounded-full"
+					onclick={handleLogout}
+					title={m.footer_logout()}
+				>
+					<LogOut class="h-4 w-4" />
+					<span class="hidden sm:inline font-medium">{m.footer_logout()}</span>
+				</button>
+			{/if}
 		</div>
 	</div>
 </header>
