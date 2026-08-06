@@ -15,6 +15,8 @@ const envSchema = z.object({
   ACCESS_TOKEN_EXPIRES_IN: z.string().default('15m'),
   REFRESH_TOKEN_EXPIRES_DAYS: z.string().default('7').transform((v) => parseInt(v, 10)),
   CORS_ORIGIN: z.string().default('http://localhost:5173'),
+  DOMAIN: z.string().optional().default(''),
+  COOKIE_DOMAIN: z.string().optional().default(''),
 
   // Email & Turnstile Config
   SMTP_HOST: z.string().optional().default(''),

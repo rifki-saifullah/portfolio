@@ -5,15 +5,25 @@ import { config } from '../config';
 const REFRESH_COOKIE_NAME = 'refresh_token';
 const ACCESS_COOKIE_NAME = 'access_token';
 
+function getCookieDomain(): string | undefined {
+  const domain = config.COOKIE_DOMAIN || config.DOMAIN;
+  if (config.NODE_ENV === 'production' && domain && domain !== 'localhost') {
+    return domain.startsWith('.') ? domain : `.${domain}`;
+  }
+  return undefined;
+}
+
 // ─── Refresh Token Cookie (long-lived, 7d) ────────────────────────────────────
 
 export function setRefreshTokenCookie(c: Context, refreshToken: string) {
   const maxAgeSeconds = config.REFRESH_TOKEN_EXPIRES_DAYS * 24 * 60 * 60;
+  const domain = getCookieDomain();
 
   setCookie(c, REFRESH_COOKIE_NAME, refreshToken, {
     httpOnly: true,
     secure: config.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    sameSite: config.NODE_ENV === 'production' ? 'None' : 'Lax',
+    domain,
     path: '/',
     maxAge: maxAgeSeconds
   });
@@ -24,23 +34,26 @@ export function getRefreshTokenCookie(c: Context): string | undefined {
 }
 
 export function clearRefreshTokenCookie(c: Context) {
+  const domain = getCookieDomain();
   deleteCookie(c, REFRESH_COOKIE_NAME, {
     path: '/',
+    domain,
     secure: config.NODE_ENV === 'production',
-    sameSite: 'Lax'
+    sameSite: config.NODE_ENV === 'production' ? 'None' : 'Lax'
   });
 }
 
 // ─── Access Token Cookie (short-lived, 15m) ───────────────────────────────────
 
 export function setAccessTokenCookie(c: Context, accessToken: string) {
-  // 15 minutes in seconds
   const maxAgeSeconds = 15 * 60;
+  const domain = getCookieDomain();
 
   setCookie(c, ACCESS_COOKIE_NAME, accessToken, {
     httpOnly: true,
     secure: config.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    sameSite: config.NODE_ENV === 'production' ? 'None' : 'Lax',
+    domain,
     path: '/',
     maxAge: maxAgeSeconds
   });
@@ -51,9 +64,12 @@ export function getAccessTokenCookie(c: Context): string | undefined {
 }
 
 export function clearAccessTokenCookie(c: Context) {
+  const domain = getCookieDomain();
   deleteCookie(c, ACCESS_COOKIE_NAME, {
     path: '/',
+    domain,
     secure: config.NODE_ENV === 'production',
-    sameSite: 'Lax'
+    sameSite: config.NODE_ENV === 'production' ? 'None' : 'Lax'
   });
 }
+
