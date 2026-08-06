@@ -42,6 +42,10 @@ export const cacheService = {
     }
   },
 
+  async delete(key: string): Promise<void> {
+    await this.del(key);
+  },
+
   /** Invalidate all keys matching pattern (e.g. "cache:posts:*") using SCAN */
   async invalidatePattern(pattern: string): Promise<void> {
     try {

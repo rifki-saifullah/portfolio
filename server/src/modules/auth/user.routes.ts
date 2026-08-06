@@ -53,7 +53,7 @@ userRoutes.put('/profile', async (c) => {
   }
 
   const updatedUser = await authRepository.updateUser(currentUser.id, parsed.data);
-  await cacheService.delete(`cache:user:${currentUser.id}`);
+  await cacheService.del(`cache:user:${currentUser.id}`);
 
   return successResponse(c, updatedUser, 'Profil berhasil diperbarui.');
 });
