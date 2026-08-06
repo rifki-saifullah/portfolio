@@ -16,7 +16,14 @@ app.use('*', logger());
 app.use(
   '*',
   cors({
-    origin: config.CORS_ORIGIN,
+    origin: (origin) => {
+      if (!origin) return config.CORS_ORIGIN;
+      const origins = config.CORS_ORIGIN.split(',').map((o) => o.trim());
+      if (origins.includes('*') || origins.includes(origin)) {
+        return origin;
+      }
+      return origins[0];
+    },
     credentials: true,
     allowMethods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept-Language']

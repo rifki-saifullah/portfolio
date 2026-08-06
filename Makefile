@@ -1,5 +1,5 @@
 .PHONY: dev dev-d dev-down dev-down-v dev-logs seed db-push \
-        prod prod-d prod-down prod-down-v prod-logs prod-seed prod-migrate
+        prod prod-d prod-down prod-down-v prod-logs prod-seed prod-migrate prod-db-push
 
 # ── Development ───────────────────────────────────────────────────────────────
 
@@ -38,8 +38,12 @@ prod-down-v:
 prod-logs:
 	docker compose -f docker-compose.prod.yml logs -f
 
+prod-db-push:
+	docker compose -f docker-compose.prod.yml --env-file .env.production exec server_prod bun prisma db push
+
 prod-migrate:
 	docker compose -f docker-compose.prod.yml --env-file .env.production exec server_prod bun prisma migrate deploy
 
 prod-seed:
 	docker compose -f docker-compose.prod.yml --env-file .env.production exec server_prod bun prisma/seed.ts
+
