@@ -7,7 +7,8 @@
 		X,
 		Maximize2,
 		ChevronLeft,
-		ChevronRight
+		ChevronRight,
+		ArrowRight
 	} from '@lucide/svelte';
 	import * as m from '$lib/paraglide/messages';
 	import Icon from '@iconify/svelte';
@@ -536,7 +537,7 @@
 				<div
 					role="button"
 					tabindex="0"
-					class="group break-inside-avoid flex flex-col rounded-2xl border border-base-300 bg-base-200 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-xl cursor-pointer"
+					class="group break-inside-avoid flex flex-col rounded-2xl border border-base-300 bg-base-200 p-4 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-primary/60 hover:shadow-2xl hover:ring-2 hover:ring-primary/20 cursor-pointer"
 					onclick={() => openProjectModal(project)}
 					onkeydown={(e) => e.key === 'Enter' && openProjectModal(project)}
 				>
@@ -547,10 +548,15 @@
 							class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
 						/>
 						<div
-							class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white gap-2 font-semibold text-sm"
+							class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white gap-2 font-semibold text-sm backdrop-blur-[2px]"
 						>
 							<Maximize2 size={18} />
 							<span>{m.homepage_project_view_detail()}</span>
+						</div>
+						<div
+							class="absolute top-3 right-3 z-10 rounded-full bg-base-100/90 p-2 text-base-content/80 shadow-md backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-content"
+						>
+							<Maximize2 size={14} />
 						</div>
 					</div>
 
@@ -576,6 +582,13 @@
 										{tag}
 									</span>
 								{/each}
+							</div>
+
+							<div class="mt-4 flex items-center justify-between border-t border-base-300/80 pt-3">
+								<span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-primary group-hover:text-primary-focus transition-colors">
+									{m.homepage_project_view_detail()}
+									<ArrowRight size={14} class="transition-transform duration-300 group-hover:translate-x-1" />
+								</span>
 							</div>
 						</div>
 					</div>
