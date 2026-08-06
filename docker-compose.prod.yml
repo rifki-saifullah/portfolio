@@ -1,0 +1,119 @@
+services:
+  traefik:
+    image: traefik:v3.0
+    container_name: portfolio_traefik_prod
+    restart: always
+    command:
+      - "--api.dashboard=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme_data:/letsencrypt"
+    networks:
+      - portfolio_prod_net
+
+  mysql_prod:
+    image: mysql:8.0
+    container_name: portfolio_mysql_prod
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_prod_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '--password=${MYSQL_ROOT_PASSWORD}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - portfolio_prod_net
+
+  redis_prod:
+    image: redis:7-alpine
+    container_name: portfolio_redis_prod
+    restart: always
+    command: redis-server --requirepass "${REDIS_PASSWORD}"
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', '-a', '${REDIS_PASSWORD}', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - portfolio_prod_net
+
+  server_prod:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.prod
+    container_name: portfolio_server_prod
+    restart: always
+    env_file:
+      - ./server/.env.production
+    environment:
+      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql_prod:3306/${MYSQL_DATABASE}
+      REDIS_HOST: redis_prod
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      CORS_ORIGIN: https://${DOMAIN}
+    volumes:
+      - uploads_data:/app/uploads
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.server.rule=Host(`api.${DOMAIN}`)"
+      - "traefik.http.routers.server.entrypoints=websecure"
+      - "traefik.http.routers.server.tls.certresolver=myresolver"
+      - "traefik.http.services.server.loadbalancer.server.port=3000"
+    depends_on:
+      mysql_prod:
+        condition: service_healthy
+      redis_prod:
+        condition: service_healthy
+    networks:
+      - portfolio_prod_net
+
+  client_prod:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.prod
+    container_name: portfolio_client_prod
+    restart: always
+    environment:
+      PUBLIC_API_URL: https://api.${DOMAIN}/api
+      PUBLIC_MOCK_API: "false"
+      PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.client.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
+      - "traefik.http.routers.client.entrypoints=websecure"
+      - "traefik.http.routers.client.tls.certresolver=myresolver"
+      - "traefik.http.services.client.loadbalancer.server.port=3000"
+    depends_on:
+      - server_prod
+    networks:
+      - portfolio_prod_net
+
+volumes:
+  mysql_prod_data:
+  redis_prod_data:
+  uploads_data:
+  acme_data:
+
+networks:
+  portfolio_prod_net:
+    driver: bridge

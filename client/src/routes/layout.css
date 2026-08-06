@@ -1,0 +1,105 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@import '@fontsource/jetbrains-mono';
+@import '@fontsource/noto-serif';
+@import '@fontsource-variable/inter/wght.css';
+
+@plugin 'daisyui' {
+	themes: solarized-green, solarized-green-dark;
+	--font-sans: 'Inter Variable', sans-serif;
+	--font-serif: 'Noto Serif', serif;
+	--font-mono: 'JetBrains Mono', monospace;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'solarized-green';
+	default: true;
+	prefersdark: false;
+	color-scheme: light;
+
+	/* Base */
+	--color-base-100: #fdf6e3;
+	--color-base-200: #f5efdb;
+	--color-base-300: #eee8d5;
+	--color-base-content: #073642;
+
+	/* Brand */
+	--color-primary: #5a7a3a;
+	--color-primary-content: #fdf6e3;
+
+	--color-secondary: #6c8d4a;
+	--color-secondary-content: #fdf6e3;
+
+	--color-accent: #859900;
+	--color-accent-content: #fdf6e3;
+
+	/* Neutral */
+	--color-neutral: #586e75;
+	--color-neutral-content: #fdf6e3;
+
+	/* Status */
+	--color-info: #268bd2;
+	--color-success: #859900;
+	--color-warning: #b58900;
+	--color-error: #dc322f;
+
+	/* Radius */
+	--radius-selector: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-box: 1rem;
+
+	/* Size */
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+
+	/* Border */
+	--border: 1px;
+
+	/* Effects */
+	--depth: 1;
+	--noise: 0;
+}
+
+@plugin 'daisyui/theme' {
+	name: 'solarized-green-dark';
+	default: false;
+	prefersdark: true;
+	color-scheme: dark;
+
+	/* Base (Solarized Dark Backgrounds) */
+	--color-base-100: #002b36;
+	--color-base-200: #073642;
+	--color-base-300: #586e75;
+	--color-base-content: #93a1a1;
+
+	/* Brand (Disesuaikan agar terlihat kontras di background gelap) */
+	--color-primary: #859900;
+	--color-primary-content: #002b36;
+
+	--color-secondary: #5a7a3a;
+	--color-secondary-content: #fdf6e3;
+
+	--color-accent: #b58900;
+	--color-accent-content: #002b36;
+
+	/* Neutral */
+	--color-neutral: #586e75;
+	--color-neutral-content: #eee8d5;
+
+	/* Status (Tetap konsisten dengan palet standar Solarized) */
+	--color-info: #268bd2;
+	--color-success: #859900;
+	--color-warning: #b58900;
+	--color-error: #dc322f;
+
+	/* Radius, Size, Border, Effects tetap mengikuti konsistensi desain Anda */
+	--radius-selector: 0.5rem;
+	--radius-field: 0.5rem;
+	--radius-box: 1rem;
+	--size-selector: 0.25rem;
+	--size-field: 0.25rem;
+	--border: 1px;
+	--depth: 1;
+	--noise: 0;
+}

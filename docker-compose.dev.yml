@@ -1,0 +1,88 @@
+services:
+  mysql_dev:
+    image: mysql:8.0
+    container_name: portfolio_mysql_dev
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: portfolio_db
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_dev_data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-proot']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - portfolio_dev_net
+
+  redis_dev:
+    image: redis:7-alpine
+    container_name: portfolio_redis_dev
+    restart: always
+    ports:
+      - '6380:6379'
+    volumes:
+      - redis_dev_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - portfolio_dev_net
+
+  server_dev:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: portfolio_server_dev
+    restart: always
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./server/.env.development
+    environment:
+      - DATABASE_URL=mysql://root:root@mysql_dev:3306/portfolio_db
+      - REDIS_HOST=redis_dev
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    depends_on:
+      mysql_dev:
+        condition: service_healthy
+      redis_dev:
+        condition: service_healthy
+    networks:
+      - portfolio_dev_net
+
+  client_dev:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: portfolio_client_dev
+    restart: always
+    ports:
+      - '5173:5173'
+    env_file:
+      - ./client/.env.development
+    environment:
+      - PUBLIC_API_URL=/api
+      - PUBLIC_MOCK_API=false
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server_dev
+    networks:
+      - portfolio_dev_net
+
+volumes:
+  mysql_dev_data:
+  redis_dev_data:
+
+networks:
+  portfolio_dev_net:
+    driver: bridge
