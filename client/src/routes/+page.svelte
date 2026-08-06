@@ -442,16 +442,10 @@
 				</h2>
 			</div>
 
-			<div class="space-y-5 rounded-[2rem] border border-base-300/80 bg-base-200/70 p-6 shadow-sm backdrop-blur md:p-8">
-				{#each [
-					m.homepage_about_description_1(),
-					m.homepage_about_description_2(),
-					m.homepage_about_description_3()
-				] as paragraph, index (index)}
-					<p class="font-sans text-lg leading-8 text-base-content/80 md:text-xl md:leading-9">
-						{paragraph}
-					</p>
-				{/each}
+			<div class="rounded-[2rem] border border-base-300/80 bg-base-200/70 p-6 shadow-sm backdrop-blur md:p-8">
+				<p class="font-sans text-lg leading-8 text-base-content/80 md:text-xl md:leading-9">
+					{m.homepage_about_description()}
+				</p>
 			</div>
 		</div>
 
