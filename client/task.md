@@ -15,7 +15,7 @@
 - [ ] Create `src/lib/validators/auth.ts`
 - [ ] Create `src/lib/validators/post.ts`
 - [ ] Create `src/lib/validators/category.ts`
-- [ ] Create `.env` and `.env.production`
+- [ ] Create `.env.development` and `.env.production`
 
 ## Phase 2 — Localization Completion
 - [ ] Audit and update `messages/id.json`

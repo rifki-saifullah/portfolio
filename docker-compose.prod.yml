@@ -1,26 +1,24 @@
 services:
-  traefik:
-    image: traefik:v3.0
-    container_name: portfolio_traefik_prod
+  caddy:
+    image: caddy:2.8-alpine
+    container_name: portfolio_caddy_prod
     restart: always
     command:
-      - "--api.dashboard=false"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "caddy"
+      - "run"
+      - "--config"
+      - "/etc/caddy/Caddyfile"
+      - "--adapter"
+      - "caddyfile"
     ports:
       - "80:80"
       - "443:443"
+    env_file:
+      - ./.env.production
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-      - "acme_data:/letsencrypt"
+      - "./Caddyfile:/etc/caddy/Caddyfile:ro"
+      - "caddy_data:/data"
+      - "caddy_config:/config"
     networks:
       - portfolio_prod_net
 
@@ -65,20 +63,9 @@ services:
     container_name: portfolio_server_prod
     restart: always
     env_file:
-      - ./server/.env.production
-    environment:
-      DATABASE_URL: mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@mysql_prod:3306/${MYSQL_DATABASE}
-      REDIS_HOST: redis_prod
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      CORS_ORIGIN: https://${DOMAIN}
+      - ./.env.production
     volumes:
       - uploads_data:/app/uploads
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.server.rule=Host(`api.${DOMAIN}`)"
-      - "traefik.http.routers.server.entrypoints=websecure"
-      - "traefik.http.routers.server.tls.certresolver=myresolver"
-      - "traefik.http.services.server.loadbalancer.server.port=3000"
     depends_on:
       mysql_prod:
         condition: service_healthy
@@ -93,16 +80,8 @@ services:
       dockerfile: Dockerfile.prod
     container_name: portfolio_client_prod
     restart: always
-    environment:
-      PUBLIC_API_URL: https://api.${DOMAIN}/api
-      PUBLIC_MOCK_API: "false"
-      PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.client.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)"
-      - "traefik.http.routers.client.entrypoints=websecure"
-      - "traefik.http.routers.client.tls.certresolver=myresolver"
-      - "traefik.http.services.client.loadbalancer.server.port=3000"
+    env_file:
+      - ./.env.production
     depends_on:
       - server_prod
     networks:
@@ -112,7 +91,8 @@ volumes:
   mysql_prod_data:
   redis_prod_data:
   uploads_data:
-  acme_data:
+  caddy_data:
+  caddy_config:
 
 networks:
   portfolio_prod_net:

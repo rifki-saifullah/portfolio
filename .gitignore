@@ -1,5 +1,5 @@
-# Production secrets — jangan pernah commit!
-.env.prod
+# Environment files with secrets — jangan pernah commit actual prod env
+.env.production
 
 # OS
 .DS_Store

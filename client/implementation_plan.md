@@ -252,13 +252,13 @@ MSW browser worker setup.
 #### [NEW] `src/lib/mocks/handlers/index.ts`
 Combined handler exports.
 
-#### [NEW] `.env`
+#### [NEW] `.env.development`
 ```
 PUBLIC_API_URL=http://localhost:3000/api
 PUBLIC_MOCK_API=true
 ```
 
-#### [NEW] `.env.production`
+#### [NEW] `.env.production.example`
 ```
 PUBLIC_API_URL=https://api.example.com
 PUBLIC_MOCK_API=false

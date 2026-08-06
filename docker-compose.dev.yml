@@ -43,10 +43,7 @@ services:
     ports:
       - '3000:3000'
     env_file:
-      - ./server/.env.development
-    environment:
-      - DATABASE_URL=mysql://root:root@mysql_dev:3306/portfolio_db
-      - REDIS_HOST=redis_dev
+      - ./.env.development
     volumes:
       - ./server:/app
       - /app/node_modules
@@ -67,10 +64,7 @@ services:
     ports:
       - '5173:5173'
     env_file:
-      - ./client/.env.development
-    environment:
-      - PUBLIC_API_URL=/api
-      - PUBLIC_MOCK_API=false
+      - ./.env.development
     volumes:
       - ./client:/app
       - /app/node_modules

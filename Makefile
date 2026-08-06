@@ -27,19 +27,19 @@ seed:
 # ── Production ────────────────────────────────────────────────────────────────
 
 prod:
-	docker compose -f docker-compose.prod.yml --env-file .env.prod up -d --build
+	docker compose -f docker-compose.prod.yml --env-file .env.production up -d --build
 
 prod-down:
-	docker compose -f docker-compose.prod.yml --env-file .env.prod down
+	docker compose -f docker-compose.prod.yml --env-file .env.production down
 
 prod-down-v:
-	docker compose -f docker-compose.prod.yml --env-file .env.prod down -v
+	docker compose -f docker-compose.prod.yml --env-file .env.production down -v
 
 prod-logs:
 	docker compose -f docker-compose.prod.yml logs -f
 
 prod-migrate:
-	docker compose -f docker-compose.prod.yml --env-file .env.prod exec server_prod bun prisma migrate deploy
+	docker compose -f docker-compose.prod.yml --env-file .env.production exec server_prod bun prisma migrate deploy
 
 prod-seed:
-	docker compose -f docker-compose.prod.yml --env-file .env.prod exec server_prod bun prisma/seed.ts
+	docker compose -f docker-compose.prod.yml --env-file .env.production exec server_prod bun prisma/seed.ts
