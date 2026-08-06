@@ -156,17 +156,17 @@
 			<div class="space-y-7 text-base leading-8 text-base-content md:text-lg">
 				{#each post.contentBlocks as block, i}
 					{#if block.type === 'paragraph'}
-						<div class="prose prose-base max-w-none dark:prose-invert article-paragraph {i === 0 ? 'first-drop-cap' : ''}">
+						<div class="prose prose-base max-w-none dark:prose-invert">
 							{@html formatHtmlContent(block.value)}
 						</div>
 					{:else if block.type === 'code'}
 						<div class="mockup-code border border-base-300 shadow-sm font-mono text-sm">
 							{#each getCodeText(block.value).split('\n') as line, idx}
-								<pre data-prefix={idx === 0 ? '$' : '>'}><code>{line}</code></pre>
+								<pre data-prefix={idx + 1}><code>{line}</code></pre>
 							{/each}
 						</div>
 					{:else if block.type === 'rich-text'}
-						<div class="prose prose-base max-w-none dark:prose-invert article-paragraph {i === 0 ? 'first-drop-cap' : ''}">
+						<div class="prose prose-base max-w-none dark:prose-invert">
 							{@html formatHtmlContent(block.value)}
 						</div>
 					{:else if block.type === 'image'}
@@ -305,23 +305,6 @@
 </div>
 
 <style>
-	:global(.article-paragraph p) {
-		text-indent: 2.25rem;
-	}
-	:global(.first-drop-cap p:first-of-type) {
-		text-indent: 0;
-	}
-	:global(.first-drop-cap p:first-of-type::first-letter) {
-		float: left;
-		font-size: 4rem;
-		line-height: 0.8;
-		font-weight: 700;
-		margin-right: 0.75rem;
-		margin-top: 0.15rem;
-		color: var(--fallback-p, oklch(var(--p) / 1));
-		font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-	}
-
 	@keyframes pop-in {
 		0% {
 			transform: scale(0.75);
