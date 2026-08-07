@@ -398,8 +398,6 @@
 			<div
 				class="flex flex-wrap items-center justify-center gap-3 text-sm font-medium tracking-wide sm:text-base"
 			>
-				<span>{m.homepage_hero_role_se()}</span>
-
 				<span class="relative flex h-2 w-2">
 					<span
 						class="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"

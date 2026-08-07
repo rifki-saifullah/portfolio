@@ -24,7 +24,7 @@
 	"homepage_project_visit_website": "Visit Website",
 	"homepage_project_screenshots": "Screenshots",
 	"homepage_hero_role_se": "Software Engineer",
-	"homepage_hero_role_be": "Backend Engineer",
+	"homepage_hero_role_be": "Backend Developer",
 
 	"homepage_journey_title": "Journey",
 	"homepage_journey_description": "A reflection of my internship experiences and the contributions I have made to software development.",
@@ -194,8 +194,8 @@
 	"move_up": "Move Up",
 	"move_down": "Move Down",
 
-	"meta_homepage_title": "Rifki Saifullah — Software Engineer",
-	"meta_homepage_description": "Personal portfolio and blog by Rifki Saifullah, Software Engineer.",
+	"meta_homepage_title": "Rifki Saifullah — Backend Developer",
+	"meta_homepage_description": "Personal portfolio and blog by Rifki Saifullah, Backend Developer.",
 	"meta_login_title": "Login",
 	"meta_post_list_title": "Posts",
 	"meta_admin_category_title": "Manage Categories",

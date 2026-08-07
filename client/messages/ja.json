@@ -23,8 +23,8 @@
 	"homepage_project_view_code": "コードを見る",
 	"homepage_project_visit_website": "Webサイトを見る",
 	"homepage_project_screenshots": "スクリーンショット",
-	"homepage_hero_role_se": "ソフトウェアエンジニア",
-	"homepage_hero_role_be": "バックエンドエンジニア",
+	"homepage_hero_role_se": "Software Engineer",
+	"homepage_hero_role_be": "Backend Developer",
 
 	"homepage_journey_title": "経歴",
 	"homepage_journey_description": "インターンシップを通じて得た経験と、ソフトウェア開発における私の貢献を記しています。",
@@ -194,8 +194,8 @@
 	"move_up": "上へ",
 	"move_down": "下へ",
 
-	"meta_homepage_title": "リフキ・サイフラー — ソフトウェアエンジニア",
-	"meta_homepage_description": "ソフトウェアエンジニア、リフキ・サイフラーのポートフォリオとブログ。",
+	"meta_homepage_title": "リフキ・サイフラー — Backend Developer",
+	"meta_homepage_description": "Backend Developer、リフキ・サイフラーのポートフォリオとブログ。",
 	"meta_login_title": "ログイン",
 	"meta_post_list_title": "投稿",
 	"meta_admin_category_title": "カテゴリ管理",
